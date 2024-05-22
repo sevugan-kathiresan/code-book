@@ -14,4 +14,4 @@ This project is a simple react based CLI which lets users lauch a Integrated Dev
     - In addition to Plain JavaScript you can also code React Components
     - In addition to writing code you can also import any arbitrary npm modules.
     - You can also import CSS files from npm. E.g. bulma
-4. Capable of persisting data by saving your code and documentation by saving it as a JavaScript file `.js` in to your harddrive.
+4. Capable of persisting data by saving your code and documentation by saving it as a JavaScript file `.js` in to your hard drive.
