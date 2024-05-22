@@ -15,3 +15,13 @@ This project is a simple react based CLI which lets users lauch a Integrated Dev
     - In addition to writing code you can also import any arbitrary npm modules.
     - You can also import CSS files from npm. E.g. bulma
 4. Capable of persisting data by saving your code and documentation by saving it as a JavaScript file `.js` in to your hard drive.
+
+### Folder Structure
+/code-book(repository)<br>
+ - /cbook - React APP
+ - README.md
+<hr>
+
+### Dependencies
+1. esbuild-wasm@0.8.27 (Web assembly module)
+
