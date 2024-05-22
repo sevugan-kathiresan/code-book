@@ -24,4 +24,5 @@ This project is a simple react based CLI which lets users lauch a Integrated Dev
 
 ### Dependencies
 1. esbuild-wasm@0.8.27 (Web assembly module)
+2. axios
 
