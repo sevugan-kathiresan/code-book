@@ -31,7 +31,11 @@ const App = () => {
       entryPoints: ['index.js'],
       bundle: true,
       write: false,
-      plugins: [unpkgPathPlugin()]
+      plugins: [unpkgPathPlugin()],
+      define: {
+        'process.env.NODE_ENV': '"production"', // replacing with string production that is why use of two quotations
+        global: 'window', // we need to replace global with winndow if we try to run our code inside browser
+      }
     });
 
     setCode(result.outputFiles[0].text);
