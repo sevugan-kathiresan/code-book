@@ -7,6 +7,7 @@ import { fetchPlugin } from './plugins/fetch-plugin';
 
 const App = () => {
   const ref = useRef<any>();
+  const iframe = useRef<any>();
   const [input, setInput] = useState('');
   const [code, setCode] = useState(''); // Result from our esbuild
 
@@ -39,9 +40,26 @@ const App = () => {
       }
     });
 
-    setCode(result.outputFiles[0].text);
+    //setCode(result.outputFiles[0].text);
+    // By using the reference hook that we created for our iframe we are posting the bundled code as a message
+    // arg - '*' represents that any domain with appropriate event listener can listen to this message
+    iframe.current.contentWindow.postMessage(result.outputFiles[0].text, '*');
   };
 
+  const html = `
+    <html>
+      <head></head>
+      <body>
+        <div id="root"></div>
+        <script>
+         window.addEventListener('message', (event) => {
+          eval(event.data);
+         }, false)
+        </script>
+      </body>
+    </html>
+  `;
+  
   return (
     <div>
       <textarea value={input} onChange={e => setInput(e.target.value)}></textarea>
@@ -49,6 +67,7 @@ const App = () => {
         <button onClick={onClick}>Submit</button>
       </div>
       <pre>{code}</pre>
+      <iframe ref={iframe} sandbox="allow-scripts" srcDoc={html}/>
     </div>
   );
 };
