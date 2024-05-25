@@ -15,6 +15,18 @@ This project is a simple react based CLI which lets users lauch a Integrated Dev
     - In addition to writing code you can also import any arbitrary npm modules.
     - You can also import CSS files from npm. E.g. bulma
 4. Capable of persisting data by saving your code and documentation by saving it as a JavaScript file `.js` in to your hard drive.
+<hr>
+
+### Key Technical Features
+1. In Browser Bundling and Transpiling of user entered code in the code cell of the notebook.
+    - Achieved using the esbuild
+    - Wrote a custom plugin for esbild to dynamically fetch the npm modules from 'unpkg' repository.
+    - Dynamic fetctching will work expected even in case nested modules.
+2. Custom Caching Layer - To reduce the number fo request made to unpkg repo.
+     - Acheived using IndexedDB, utlized localforage library from npm to make the process of working with IndexedDB a little easier.
+3. CSS imports - esbuild does supports bundling of CSS files but in a scenario where we are working with the bundling of both JS and CSS, esbuild will produce two different bundled files one for JS and one for JS. For this functionality we might need to give esbuild access to file system unfortunately Browsers don't have file system but our app runs inside browser,
+    - wrote a small conditional case with customs Javascript to wrap the CSS content and insert it into the main JS output file.
+<hr>
 
 ### Folder Structure
 /code-book(repository)<br>
@@ -25,4 +37,5 @@ This project is a simple react based CLI which lets users lauch a Integrated Dev
 ### Dependencies
 1. esbuild-wasm@0.8.27 (Web assembly module)
 2. axios
+3. localforage - to work with IndexedDB
 
