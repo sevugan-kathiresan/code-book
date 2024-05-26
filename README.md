@@ -1,35 +1,23 @@
 # code-book
-A React application which acts as a simple browser based IDE
+A React application which acts as an in-browser transpiler and bundler for user entered Javascript code.
 <hr>
 
 ### Description
-This project is a simple react based CLI which lets users lauch a Integrated Development Environment for JavaScript in their browsers (similar to Jupyter Notebook but for JavaScript). Some key features are:<br>
+This is a single page React app. The app consist of three major components
+1. Code Editor
+    - An in-browser code editor which lets users enter their Javascript code
+    - Supports autocomplete and syntax highlighting features.
+    - Supports code formatting
 
-1. Initially the IDE will be a plain notebook but the users can add text/code cell using the UI buttons. You can add multiple cells.
-2. Text Cell
-    - Opens up a markdown editor where you can write and format any documentation for you code.
-3. Code Cell
-    - Open up a code editor where you can wirte you code.
-    - This also has a preview window on its right.
-    - In addition to Plain JavaScript you can also code React Components
-    - In addition to writing code you can also import any arbitrary npm modules.
-    - You can also import CSS files from npm. E.g. bulma
-4. Capable of persisting data by saving your code and documentation by saving it as a JavaScript file `.js` in to your hard drive.
-<hr>
+2. Bundler
+    - Transpiles and Bundles the user entered code to plain vanilla javascript, which can be understood by the browser.
+    - Supports dynamic fetching of npm modules from the internet.
+    - Built using the esbuild web assembly (esbuild-wasm) module.
+    - Implemented custom plugins for the esbuild-wasm to acheive in-browser transpiling and bundling.
+    - Implemented a caching layer on top of the bundler to imporve permormance by reducing the amount network request to fetch the NPM modules.
 
-### Key Technical Features
-1. In Browser Bundling and Transpiling of user entered code in the code cell of the notebook.
-    - Achieved using the esbuild
-    - Wrote a custom plugin for esbild to dynamically fetch the npm modules from 'unpkg' repository.
-    - Dynamic fetctching will work expected even in case nested modules.
-2. Custom Caching Layer - To reduce the number fo request made to unpkg repo.
-     - Acheived using IndexedDB, utlized localforage library from npm to make the process of working with IndexedDB a little easier.
-3. CSS imports - esbuild does supports bundling of CSS files but in a scenario where we are working with the bundling of both JS and CSS, esbuild will produce two different bundled files one for JS and one for JS. For this functionality we might need to give esbuild access to file system unfortunately Browsers don't have file system but our app runs inside browser,
-    - wrote a small conditional case with customs Javascript to wrap the CSS content and insert it into the main JS output file.
-4. Execution of user entered code
-    - might have errors
-    - might mutate the DOM
-    - malicious code
+3. Preview Window
+    - Receives the bundled output from the bundler and display it.
 <hr>
 
 ### Folder Structure
@@ -38,8 +26,19 @@ This project is a simple react based CLI which lets users lauch a Integrated Dev
  - README.md
 <hr>
 
-### Dependencies
-1. esbuild-wasm@0.8.27 (Web assembly module)
-2. axios
-3. localforage - to work with IndexedDB
+### Prerequisite
+1. NodeJS
+2. npm
+
+### WorkFlow
+1. When you clone the GitHub repository you will have the folder structure as shown in the previous section. change in to the `cbook` directory and install the required dependencies by using the following command `npm install`.
+
+2. Once all the dependencies have been installed you can start the application using the command `npm start`. This will open up the application in you browser.
+![overall app](./cbook/images/overall-app.png)
+
+3. On the top portion you can see the code editor. when you hover over the editor with your mouse you can also the `format` button appear on top right corner of the cod editor. Once you wrote your code if you want to autoformat it you can simply click the format button. Once done you can press the `submit` buttom below the code editor.
+![code editor](./cbook/images/code-editor.png)
+
+4. Once you press the submit button you can see the transpiled and bundled code in the preview section below.
+![preview](/cbook/images/preview.png)
 
