@@ -1,0 +1,26 @@
+.orange-button {
+    background-color: #FFA500; /* Orange background color */
+    color: white; /* White text color */
+    border: none; /* Remove default border */
+    border-radius: 12px; /* Rounded borders */
+    padding: 10px 20px; /* Padding for the button */
+    font-size: 16px; /* Font size */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for hover effect */
+    margin: 2rem
+}
+
+.orange-button:hover {
+    background-color: #FF8C00; /* Darker orange on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow effect on hover */
+}
+
+.orange-button:focus {
+    outline: none; /* Remove default focus outline */
+    box-shadow: 0 0 0 3px rgba(255, 165, 0, 0.5); /* Custom focus outline */
+}
+
+.heading {
+    margin: 2rem;
+    font-size: large;
+}

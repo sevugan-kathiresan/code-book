@@ -1,0 +1,14 @@
+.preview-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.pre-container {
+    width: 80%; /* Adjust this width as needed */
+    max-height: 400px; /* Fixed height for the <pre> container */
+    overflow: auto; /* Enable scrolling */
+    border: 1px solid #ccc; /* Optional: Add a border */
+    padding: 16px; /* Optional: Add some padding */
+}

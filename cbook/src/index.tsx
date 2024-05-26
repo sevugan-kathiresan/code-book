@@ -5,6 +5,7 @@ import CodeEditor from './components/code-editor';
 import 'bulmaswatch/superhero/bulmaswatch.min.css';
 import Preview from './components/preview';
 import bundle from './bundler';
+import './index.css';
 
 const App = () => {
   const [input, setInput] = useState('');
@@ -17,12 +18,13 @@ const App = () => {
   
   return (
     <div>
+      <div className='heading'>Enter Your Javascript code Below</div>
       <CodeEditor 
-        initialValue='Hello World !!'
+        initialValue=''
         onChange={(value) => setInput(value)}
       />
       <div>
-        <button onClick={onClick}>Submit</button>
+        <button className='orange-button' onClick={onClick}>Submit</button>
       </div>
       <Preview code={code}/>
     </div>
