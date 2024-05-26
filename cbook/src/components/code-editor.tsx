@@ -1,3 +1,4 @@
+import './code-editor.css';
 import { useRef } from "react";
 import MonacoEditor, { EditorDidMount } from "@monaco-editor/react";
 /*EditorDidMount - type definition interface not a function*/
@@ -32,15 +33,15 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ onChange, initialValue }) => {
             useTabs: false,
             semi: true,
             singleQuote: true
-        });
+        }).replace(/\n$/, '');
 
         //set the formatted code back in to the editor
         editorRef.current.setValue(formatted);
     }
 
     return (
-        <div>
-            <button onClick={onFormatClick}>Format</button>
+        <div className="editor-wrapper">
+            <button className="button button-format is-primary is-small" onClick={onFormatClick}>Format</button>
             <MonacoEditor
                 editorDidMount={onEditorDidMount}
                 value={initialValue}
@@ -57,7 +58,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ onChange, initialValue }) => {
                     scrollBeyondLastLine: false,
                     automaticLayout: true
                 }}
-            />;
+            />
         </div>
     );
 };
