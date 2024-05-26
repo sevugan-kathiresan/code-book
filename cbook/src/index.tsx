@@ -6,11 +6,12 @@ import { unpkgPathPlugin } from './plugins/unpkg-path-plugin';
 import { fetchPlugin } from './plugins/fetch-plugin';
 import CodeEditor from './components/code-editor';
 import 'bulmaswatch/superhero/bulmaswatch.min.css';
+import Preview from './components/preview';
 
 const App = () => {
   const ref = useRef<any>();
-  const iframe = useRef<any>();
   const [input, setInput] = useState('');
+  const [code, setCode] = useState('');
 
   //Initializing the esbuild
   const startService = async () => {
@@ -29,9 +30,6 @@ const App = () => {
       return;
     }
     
-    // Resetting the iframe before bundling the next set of code to prevent any DOM manipulation
-    iframe.current.srcdoc = html;
-    
     //building = transpiling + bundling
     const result = await ref.current.build({
       entryPoints: ['index.js'],
@@ -40,35 +38,11 @@ const App = () => {
       plugins: [unpkgPathPlugin(), fetchPlugin(input)],
       define: {
         'process.env.NODE_ENV': '"production"', // replacing with string production that is why use of two quotations
-        global: 'window', // we need to replace global with winndow if we try to run our code inside browser
+        global: 'window', // we need to replace global with window if we try to run our code inside browser
       }
     });
-
-    //setCode(result.outputFiles[0].text);
-    // By using the reference hook that we created for our iframe we are posting the bundled code as a message
-    // arg - '*' represents that any domain with appropriate event listener can listen to this message
-    iframe.current.contentWindow.postMessage(result.outputFiles[0].text, '*');
+    setCode(result.outputFiles[0].text);
   };
-
-  const html = `
-    <html>
-      <head></head>
-      <body>
-        <div id="root"></div>
-        <script>
-         window.addEventListener('message', (event) => {
-          try {
-            eval(event.data);
-          } catch (err) {
-            const root = document.querySelector('#root');
-            root.innerHTML = '<div style="color: red;"><h4>Runtime Error</h4>' + err + '</div>';
-            console.error(err);
-          }
-         }, false)
-        </script>
-      </body>
-    </html>
-  `;
   
   return (
     <div>
@@ -76,11 +50,10 @@ const App = () => {
         initialValue='Hello World !!'
         onChange={(value) => setInput(value)}
       />
-      <textarea value={input} onChange={e => setInput(e.target.value)}></textarea>
       <div>
         <button onClick={onClick}>Submit</button>
       </div>
-      <iframe title="preview" ref={iframe} sandbox="allow-scripts" srcDoc={html}/>
+      <Preview code={code}/>
     </div>
   );
 };
